@@ -12,6 +12,7 @@ do
         c) #copy  files to dir
             COPY=YES
             DESTDIR="$OPTARG"
+            mkdir -p "$DESTDIR"
             ;;
         i) #ignore case
             CASEMATCH='-i'
@@ -31,3 +32,16 @@ shift $((OPTIND - 1))
 # Setting default values for non-option arguments
 PATTERN=${1:-PDF document}
 STARTDIR=${2:-.}
+
+find $STARTDIR $DEPTH -type f | while read FILE
+do
+    file $FILE | egrep -q $CASEMATCH "$PATTERN" #quiet, no output
+    if [[ $? == 0 ]] 
+    then 
+        echo $FILE
+        if [[ $COPY == YES ]] 
+        then
+            cp -p $FILE $DESTDIR
+        fi
+    fi
+done
