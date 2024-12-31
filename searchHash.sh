@@ -1,7 +1,7 @@
 #! /bin/zsh
 #
 #Usage:
-#searchHash.sh < HASH (sha1sum)
+#bash searchHash.sh $(shasum -a 1 "FILENAME")
 
 # First, storing the hash provided
 HASHINPUT="$1"
@@ -11,6 +11,6 @@ find ./ -type f -maxdepth 1 | while read FILEINPUT
 do
     HASHOUTPUT=$(shasum -a 1 "$FILEINPUT" | cut -d ' ' -f 1)
     if [[ $HASHOUTPUT == $HASHINPUT ]] 
-        then echo 'A match has been found!'
+        then echo "A match has been found! The path is $FILEINPUT"
     fi
 done
