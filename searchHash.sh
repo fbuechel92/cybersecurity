@@ -9,7 +9,8 @@ HASHINPUT="$1"
 # Next, identify all file names, hash them and compare with hashinput
 find ./ -type f -maxdepth 1 | while read FILEINPUT
 do
-    HASHOUTPUT=$(shasum -a 1 "$FILEINPUT" | cut -d ' ' -f 1)
+    HASHOUTPUT=$(shasum -a 1 "$FILEINPUT") 
+    HASHOUTPUT=${HASHOUTPUT%% *}
     if [[ $HASHOUTPUT == $HASHINPUT ]] 
         then echo "A match has been found! The path is $FILEINPUT"
     fi
