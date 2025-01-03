@@ -1,4 +1,16 @@
-#! /bin/zsh
+#!/usr/bin/ zsh
 #
 #Usage:
-#bash countOccurences.sh < inputfile
+#zsh countOccurences.sh < inputfile
+
+declare -A dict
+
+while read line
+do
+    dict[$line]=$(( $dict[$line]+1 ))
+done
+
+for key in ${(@k)dict}
+do
+    echo "$key: ${dict[$key]}"
+done
