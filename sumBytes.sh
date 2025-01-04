@@ -5,9 +5,9 @@
 
 declare -A dict
 
-while read IP
+while read IP BYTE
 do
-    dict[$IP]=$(( $dict[$IP]+1 ))
+    dict[$IP]=$(( $dict[$IP]+$BYTE ))
 done
 
 for IP in ${(@k)dict}
