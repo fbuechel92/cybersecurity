@@ -18,4 +18,4 @@ done
 for key in ${(@k)dict}
 do
     echo "$dict[$key]: $key"
-done
+done | sort -k 1 -rn
