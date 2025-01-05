@@ -13,4 +13,4 @@ done
 for IP in ${(@k)dict}
 do
     echo "$IP $dict[$IP]"
-done
+done | sort -k 2 -r
