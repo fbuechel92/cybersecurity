@@ -4,13 +4,13 @@
 #zsh identifyAnomaly.sh < <inputfile>
 
 
-while read -r LINE
+while read -r browser
 do
-    agents+=($LINE)
+    browsers+=($LINE)
 done < useragents.txt
 
 awk -F'"' '{print $1, $6}' |
 while read LINE
 do
-    echo $LINE
+    mismatch
 done
