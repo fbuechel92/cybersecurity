@@ -26,5 +26,6 @@ done < useragents.txt
 awk -F'"' '{print $1, $6}' |
 while read LINE
 do
-    mismatch
+    if [[ $(mismatch) ]]
+    then echo "There is an anomaly!! Specifically: $LINE"
 done
