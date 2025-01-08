@@ -8,24 +8,28 @@ function mismatch()
     local match i
     match=0
 
-    for browser in browsers
+    for browser in ${browsers[@]}
     do
-        [[ $browser =~ ".*$LINE.*" ]]
+        [[ "*.$browser*." =~ $1 ]]
         if [[ $? == 1 ]] 
             then match=1
         fi
+        match=1
     done
-    return match
+    return $match
 }
 
-while read -r browser
-do
-    browsers+=($LINE)
+while read -r BROWSER
+do  
+    browsers+=($BROWSER)
 done < useragents.txt
 
 awk -F'"' '{print $1, $6}' |
-while read LINE
-do
-    if [[ $(mismatch) ]]
-    then echo "There is an anomaly!! Specifically: $LINE"
+while read -r LINE
+do  
+    mismatch $LINE
+    if [[ $? == 1 ]]
+    then
+        echo "There is an anomaly!! Specifically: $LINE"
+    fi
 done
