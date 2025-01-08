@@ -5,18 +5,11 @@
 
 function mismatch()
 {
-    local match i
-    match=0
-
     for browser in ${browsers[@]}
     do
-        [[ "*.$browser*." =~ $1 ]]
-        if [[ $? == 1 ]] 
-            then match=1
-        fi
-        match=1
+        [[ "*.$browser*." =~ $1 ]] && return 1
     done
-    return $match
+    return 0    
 }
 
 while read -r BROWSER
@@ -27,9 +20,7 @@ done < useragents.txt
 awk -F'"' '{print $1, $6}' |
 while read -r LINE
 do  
-    mismatch $LINE
-    if [[ $? == 1 ]]
-    then
-        echo "There is an anomaly!! Specifically: $LINE"
+    if mismatch $LINE
+        then echo "There is an anomaly!! Specifically: $LINE"
     fi
 done
