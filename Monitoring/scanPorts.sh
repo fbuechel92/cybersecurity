@@ -9,9 +9,8 @@ scan(){
     printf '%s' $host
     
     for ((port=1;port<1024;port++)); do
-        echo > /dev/null 2>&1 < nc -z -w1 ${host} ${port}
-        if (( $? == 0))
-            then printf '%d' $port
+        if nc -z -w1 ${host} ${port} > /dev/null 2>&1; then
+            printf ' %d' "$port"
         fi
     done
 }
@@ -26,4 +25,5 @@ done <<< $HOSTS
 # Call the scan function for each host
 for HOST in $HOSTARRAY; do
     scan $HOST
+    printf '\n'
 done
