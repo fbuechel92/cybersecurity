@@ -3,7 +3,7 @@
 #Usage:
 #zsh scanPorts.sh <input: CIDR> <output file> 
 
-# Define scan function
+# Define scan function to test if port is open
 scan(){
     host=$HOST
     printf '%s' $host
