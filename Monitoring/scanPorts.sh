@@ -18,6 +18,10 @@ scan(){
 # Create a list of IPs of our network
 HOSTS=$(nmap -sn $1 | grep -E -o "\(([0-9]{1,3}\.){3}[0-9]{1,3}\)" | tr -d "()")
 
+# Create output file
+printf -v TODAY 'scan_%(%F)T' -1
+OUTFILE=$TODAY
+
 while read -r HOST; do
     HOSTARRAY+=($HOST)
 done <<< $HOSTS
@@ -26,4 +30,4 @@ done <<< $HOSTS
 for HOST in $HOSTARRAY; do
     scan $HOST
     printf '\n'
-done
+done > $OUTFILE
