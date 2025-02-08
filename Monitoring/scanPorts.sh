@@ -16,7 +16,7 @@ scan(){
 }
 
 # Create a list of IPs of our network
-HOSTS=$(nmap -sn $1 | grep -E -o "\(([1-9]{1,3}\.){3}[1-9]{1,3}\)" | tr -d "()")
+HOSTS=$(nmap -sn $1 | grep -E -o "\(([0-9]{1,3}\.){3}[0-9]{1,3}\)" | tr -d "()")
 
 while read -r HOST; do
     HOSTARRAY+=($HOST)
