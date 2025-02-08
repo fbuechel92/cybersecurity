@@ -22,7 +22,7 @@ while read -r HOST; do
     HOSTARRAY+=($HOST)
 done <<< $HOSTS
 
-# Call the scan function for each host
+# Call the scan function for each host and print open ports
 for HOST in $HOSTARRAY; do
     scan $HOST
     printf '\n'
