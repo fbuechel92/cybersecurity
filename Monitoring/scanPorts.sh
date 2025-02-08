@@ -19,7 +19,7 @@ scan(){
 HOSTS=$(nmap -sn $1 | grep -E -o "\(([0-9]{1,3}\.){3}[0-9]{1,3}\)" | tr -d "()")
 
 # Create output file
-printf -v TODAY 'scan_%(%F)T' -1
+TODAY=$(date +scan_%Y-%m-%d)
 OUTFILE=$TODAY
 
 while read -r HOST; do
