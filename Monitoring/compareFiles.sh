@@ -22,26 +22,26 @@ do
 
     #if lines are the same, continue with next iteration
     if [[ $LINE1 == $LINE2 ]] 
-        THEN continue
+        then continue
     fi
 
     #Parse values to variables
-    HOST1={$LINE1%% *}
-    PORTS1=({$LINE1#* })
-    HOST2={$LINE2%% *}
-    PORTS2=({$LINE2#* })
+    HOST1=${LINE1%% *}
+    PORTS1=(${LINE1#* })
+    HOST2=${LINE2%% *}
+    PORTS2=(${LINE2#* })
 
-    for PORT1 in ${[@]PORTS1}; do
-        PORT=PORT1
-        if ! inList ${[@]PORTS2} Then
-            echo "$PORT1 has been newly opened"
+    for PORT1 in ${PORTS1[@]}; do
+        PORT=$PORT1
+        if ! inList ${PORTS2[@]}
+            then echo "$PORT1 has been newly opened"
         fi
     done
 
-    for PORT2 in ${[@]PORTS2}; do
-        PORT=PORT2
-        if ! inList ${[@]PORTS1} Then
-            echo "$PORT2 has been newly opened"
+    for PORT2 in ${PORTS2[@]}; do
+        PORT=$PORT2
+        if ! inList ${PORTS1[@]} 
+            then echo "$PORT2 has been newly opened"
         fi
     done
 
