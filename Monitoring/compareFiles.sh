@@ -5,13 +5,13 @@
 #zsh compareFiles.sh <scanfile1> <scanfile2>
 
 #We need the function because the position of the port could have changed
-function inList(){
+function notInList(){
     for OTHERPORT in "$@"; do
         if [[ $PORT == $OTHERPORT ]]
-            then return 0
+            then return 1
         fi
     done
-    return 1
+    return 0
 }
 
 while true 
@@ -27,20 +27,20 @@ do
 
     #Parse values to variables
     HOST1=${LINE1%% *}
-    PORTS1=(${LINE1#* })
+    PORTS1=(${=LINE1#* })
     HOST2=${LINE2%% *}
-    PORTS2=(${LINE2#* })
+    PORTS2=(${=LINE2#* })
 
     for PORT1 in ${PORTS1[@]}; do
         PORT=$PORT1
-        if ! inList ${PORTS2[@]}
-            then echo "$PORT1 has been newly opened"
+        if notInList ${PORTS2[@]}
+            then echo "$PORT1 has been closed"
         fi
     done
 
     for PORT2 in ${PORTS2[@]}; do
         PORT=$PORT2
-        if ! inList ${PORTS1[@]} 
+        if notInList ${PORTS1[@]} 
             then echo "$PORT2 has been newly opened"
         fi
     done
