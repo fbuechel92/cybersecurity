@@ -1,8 +1,9 @@
 #! /bin/zsh
 #
-#Usage: Providing optional parameter -b will create a baseline. Using -c however will create a comparison file
-#zsh fileSystemMonitor.sh -b OR
-#zsh fileSystemMonitor.sh -c
+#Usage: 
+#Creating either baseline or comparison file. Then comparing both and identifying differences
+#zsh fileSystemMonitor.sh [-b] [-c]
+
 
 function scan(){
     find $1 -type f 2>/dev/null | xargs shasum 1>$2 2>/dev/null
