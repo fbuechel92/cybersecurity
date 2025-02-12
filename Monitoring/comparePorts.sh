@@ -2,7 +2,7 @@
 #
 #Usage:
 #Compares two input files and returns which ports are newly opened/closed
-#zsh compareFiles.sh <scanfile1> <scanfile2>
+#zsh comparePorts.sh <scanfile1> <scanfile2>
 
 #We need the function because the position of the port could have changed
 function notInList(){
